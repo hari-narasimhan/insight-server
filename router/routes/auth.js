@@ -4,7 +4,7 @@ var express         = require('express');
 var router          = express.Router();
 var userService     = require('../../services/user-service');
 
-// GET /auth/login
+// POST /auth/login
 
 router.post ('/login',  function (req, res) {
     
@@ -18,6 +18,7 @@ router.post ('/login',  function (req, res) {
     });
 });
 
+// POST /auth/signup
 router.post('/signup', function (req, res) {
 
     userService.signup(req.body.email, req.body.password, function (err, result) {

@@ -1,18 +1,21 @@
 {
-    "name": "insight-services",
-    "version": "0.1.0",
-    "scripts" : {
-        "start": "node server.js"
-    },
-    "dependencies": {
-        "bcryptjs": "~2.0.2",
-        "body-parser": "~1.8.1",
-        "cors": "~2.4.2",
-        "morgan": "~1.6.1",
-        "express": "~4.9.0",
-        "jwt-simple": "~0.2.0",
-        "moment": "~2.8.3",
-        "mongoose": "~3.8.17",
-        "request": "~2.44.0"
-    }
+  "name": "insight-services",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "~2.0.2",
+    "body-parser": "~1.8.1",
+    "cors": "~2.4.2",
+    "express": "~4.9.0",
+    "jwt-simple": "~0.2.0",
+    "lodash": "^3.10.1",
+    "moment": "~2.8.3",
+    "mongoose": "~3.8.17",
+    "mongoose-paginate": "^4.2.0",
+    "mongoose-timestamp": "^0.4.0",
+    "morgan": "~1.6.1",
+    "request": "~2.44.0"
+  }
 }
