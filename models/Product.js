@@ -8,7 +8,7 @@ var mongoose = require("mongoose"),
 var ProductSchema = new mongoose.Schema({
        name: {type:String, unique:true, index: true},
        description: {type:String},
-       businessUnitId: {type: Schema.Types.ObjectId, required:true},
+       businessUnitId: { type: Schema.Types.ObjectId, required:true },
        businessUnit: {type:String, required: true}
 });
 

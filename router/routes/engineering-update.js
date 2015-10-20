@@ -2,12 +2,12 @@
 
 var express             = require('express');
 var router              = express.Router();
-var BusinessUnitService = require('../../services/businessUnit-service');
+var EngineeringUpdateService      = require('../../services/engineering-update-service');
 
-// POST /api/v1/businessUnits
+// POST /api/v1/engineeringUpdates
 router.post('/', function (req, res) {
 
-    BusinessUnitService.create( req.body, function (err, result) {
+    EngineeringUpdateService.create( req.body, function (err, result) {
         
         console.log(req.body);
         if(err) {
@@ -19,15 +19,14 @@ router.post('/', function (req, res) {
     });
 });
 
-// GET /api/v1/businessUnits
+// GET /api/v1/engineeringUpdates
 router.get ('/',  function (req, res) {
     
-    BusinessUnitService.query(req.params.query || {}, 
+    EngineeringUpdateService.query(req.params.query || {}, 
         req.query.page, 
         req.query.limit, function (err, result) {
         if (err) {
-            console.log(err);
-            return res.status(400).end();
+            return res.status(400).send(err);
         }
         // TODO format the response
         res.send(result);
@@ -35,9 +34,9 @@ router.get ('/',  function (req, res) {
 });
 
 
-// GET /api/v1/businessUnits/:id
+// GET /api/v1/engineeringUpdates/:id
 router.get('/:id', function (req, res) {
-   BusinessUnitService.get(req.params.id, function (err, result) {
+   EngineeringUpdateService.get(req.params.id, function (err, result) {
       if(err) {
           return res.status(400).send(err);
       }
@@ -46,9 +45,9 @@ router.get('/:id', function (req, res) {
 });
 
 
-// PUT /api/v1/businessUnits/:id
+// PUT /api/v1/engineeringUpdates/:id
 router.put('/:id', function(req, res) {
-   BusinessUnitService.update(req.params.id, req.body, function(err, result){
+   EngineeringUpdateService.update(req.params.id, req.body, function(err, result){
       if (err) {
           return res.status(400).send(err);
       } 
@@ -56,9 +55,9 @@ router.put('/:id', function(req, res) {
    });
 });
 
-// DELETE /api/v1/businessUnits/:id
+// DELETE /api/v1/engineeringUpdates/:id
 router.delete('/:id', function(req, res) {
-   BusinessUnitService.remove(req.params.id, function(err, result){
+   EngineeringUpdateService.remove(req.params.id, function(err, result){
       if (err) {
           return res.status(400).send(err);
       } 

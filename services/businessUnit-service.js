@@ -4,52 +4,46 @@ var BusinessUnit = require('../models/BusinessUnit'),
     ServiceHelper = require('./service-helper'),
     mongoose = require('mongoose'),
     ObjectId = mongoose.Types.ObjectId,
-    _ = require('lodash');
+    _ = require('lodash'),
+    async = require('async');
 
-exports.create = function(data, callback) {
-    var entity = _.pick(data, 'name', 'description', 'keyParameters');
-    
-    BusinessUnit.findOne({name: entity.name}, function(err, existingBusinessUnit) {
+exports.create = function (data, callback) {
 
-           // Check if the business unit name is alaredy existing
-           if(existingBusinessUnit) {
-               return callback({message: "Business Unit name already taken", code: "INS0003"}, undefined);
-           }
-           
-           // Create the business unit
-           var bu  = new BusinessUnit(entity);
-           
-           return bu.save(function(err) {
-               if(err) {
-                   return callback(err, undefined);
-               }
-               return callback(undefined, bu);
-           });
-    });
-};
+  var entity = _.pick(data, 'name', 'description', 'keyParameters');
 
-exports.query = function (query, page, limit, callback) {
-    
-    var options = ServiceHelper.getQueryOptions(page, limit);
-    BusinessUnit.count(query, function(countErr, count){
-       if(countErr) {
-           return callback(countErr, undefined);
-       }   
-       
-       BusinessUnit.paginate(query, options , function(err, data){
-            if(err) {
-                return callback(err, undefined);
-            }
-            return callback (undefined, 
-                { 
-                    data: data, 
-                    cursor: ServiceHelper.getCursor(options, count)
-                }
-            );
-          });
-    });
+  async.waterfall([
+      function(cb) {
+        BusinessUnit.findOne({name: entity.name}, cb);
+      },
+      function (existingBU, cb) {
+        
+        if(existingBU) {
+          return cb({message: "Business Unit name already taken", code: "INS0003"});
+        }
+        var businessUnit = new BusinessUnit(entity);
 
-};
+        businessUnit.save(cb);
+      }
+    ], callback);
+}
+
+exports.query = function(query, page, limit, callback) {
+
+    async.waterfall([
+      function(cb) {
+        BusinessUnit.count(query, cb);
+      }, 
+      function(count, cb) {
+        var options = ServiceHelper.getQueryOptions(page, limit);
+        BusinessUnit.paginate(query, options, function(err, data){
+          if(err) {
+            return cb(err);
+          }
+          cb(err, {data: data, cursor: ServiceHelper.getCursor(options, count)});
+        });
+      }
+    ], callback);
+}
 
 exports.get = function (id, callback) {
     if(!ObjectId.isValid(id)) {
@@ -72,7 +66,7 @@ exports.update = function (id, data, callback) {
             return callback({message: "Invalid request body", code: "INS0006"}, undefined);
         }
 
-        var entity = _.pick(data, 'name', 'description', 'keyParameters');
+        var entity = _.pick(data, 'name', 'businessUnitId', 'businessUnit');
         
         if(!ObjectId.isValid(id)) {
             return callback({message: "Invalid Id passed, please check your id", code: "INS0004"}, undefined);

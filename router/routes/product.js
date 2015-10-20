@@ -2,12 +2,12 @@
 
 var express             = require('express');
 var router              = express.Router();
-var BusinessUnitService = require('../../services/businessUnit-service');
+var ProductService = require('../../services/product-service');
 
 // POST /api/v1/businessUnits
 router.post('/', function (req, res) {
 
-    BusinessUnitService.create( req.body, function (err, result) {
+    ProductService.create( req.body, function (err, result) {
         
         console.log(req.body);
         if(err) {
@@ -22,12 +22,11 @@ router.post('/', function (req, res) {
 // GET /api/v1/businessUnits
 router.get ('/',  function (req, res) {
     
-    BusinessUnitService.query(req.params.query || {}, 
+    ProductService.query(req.params.query || {}, 
         req.query.page, 
         req.query.limit, function (err, result) {
         if (err) {
-            console.log(err);
-            return res.status(400).end();
+            return res.status(400).send(err);
         }
         // TODO format the response
         res.send(result);
@@ -37,7 +36,7 @@ router.get ('/',  function (req, res) {
 
 // GET /api/v1/businessUnits/:id
 router.get('/:id', function (req, res) {
-   BusinessUnitService.get(req.params.id, function (err, result) {
+   ProductService.get(req.params.id, function (err, result) {
       if(err) {
           return res.status(400).send(err);
       }
@@ -48,7 +47,7 @@ router.get('/:id', function (req, res) {
 
 // PUT /api/v1/businessUnits/:id
 router.put('/:id', function(req, res) {
-   BusinessUnitService.update(req.params.id, req.body, function(err, result){
+   ProductService.update(req.params.id, req.body, function(err, result){
       if (err) {
           return res.status(400).send(err);
       } 
@@ -58,7 +57,7 @@ router.put('/:id', function(req, res) {
 
 // DELETE /api/v1/businessUnits/:id
 router.delete('/:id', function(req, res) {
-   BusinessUnitService.remove(req.params.id, function(err, result){
+   ProductService.remove(req.params.id, function(err, result){
       if (err) {
           return res.status(400).send(err);
       } 
