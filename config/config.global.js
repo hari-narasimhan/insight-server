@@ -9,7 +9,7 @@ config.app.port = process.env.port || 3030;
 
 config.db.host = "localhost";
 config.db.dbName = "insightDev";
-config.db.url = 'localhost';
+config.db.url = 'localhost/insightDev';
 config.SECRET_TOKEN = "$N@K3WR@NGL3R";
 
 module.exports = config;

@@ -5,6 +5,7 @@ var User    = require('../models/User');
 var config  = require('../config');
 var jwt     = require('jwt-simple');
 var moment  = require('moment');
+var _ = require('lodash');
 
 function createToken (user) {
     var payload = {
@@ -41,7 +42,7 @@ exports.login = function ( email, password, callback ) {
         });
 };
 
-exports.signup = function ( email, password, callback ) {
+exports.signup = function ( email, password, fullname, callback ) {
     User.findOne({email:email}, function (err, existingUser){
 
         if(existingUser) {
@@ -50,7 +51,8 @@ exports.signup = function ( email, password, callback ) {
 
         var user = new User({
             email: email,
-            password: password
+            password: password,
+            fullname: fullname
         });
 
         bcrypt.genSalt(10, function(err, salt) {

@@ -15,6 +15,7 @@ var OpportunitySchema = new mongoose.Schema({
        prospect: { type:String },
        potential: { type:Number },
        status: {type: String},
+       statusUpdates: {type: Array},
        targetDate: {type: Date}
        
 });
@@ -24,3 +25,5 @@ OpportunitySchema.plugin(timestamp);
 OpportunitySchema.plugin(paginate);
 
 var Opportunity = mongoose.model('Opportunity', OpportunitySchema);
+
+module.exports = Opportunity;

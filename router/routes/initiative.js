@@ -1,8 +1,8 @@
 "use strict";
 
-var Product = require('../../models/Product'); 
+var Initiative = require('../../models/Initiative'); 
 var restify = require('express-restify-mongoose');
 
 module.exports = function (router) {
-    restify.serve(router, Product);
+    restify.serve(router, Initiative);
 };

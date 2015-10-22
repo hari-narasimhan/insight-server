@@ -8,7 +8,7 @@ var mongoose = require("mongoose"),
 var BusinessUnitSchema = new mongoose.Schema({
        name: {type:String, unique:true, index: true},
        description: {type:String},
-       keyParameters: {type: Schema.Types.Mixed}
+       keyParameters: {type:Array}
 });
 
 // Add the timestamp plugin

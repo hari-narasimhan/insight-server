@@ -8,10 +8,9 @@ var mongoose = require("mongoose"),
 var KeyMetricSchema = new mongoose.Schema({
        businessUnitId: { type: Schema.Types.ObjectId, required:true },
        businessUnit: { type:String, required: true },
-       month: { type: Number, required:true, min:1, max:12 },
-       year: { type: Number, required: true },
-       kpp: {type: String, required: true},
-       value: {type: String, required; true}
+       period: {type: Number, required: true},
+       param: {type: String, required: true},
+       value: {type: String, required: true}
        
 });
 

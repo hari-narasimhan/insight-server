@@ -21,7 +21,7 @@ router.post ('/login',  function (req, res) {
 // POST /auth/signup
 router.post('/signup', function (req, res) {
 
-    userService.signup(req.body.email, req.body.password, function (err, result) {
+    userService.signup(req.body.email, req.body.password, req.body.fullname, function (err, result) {
         
         if(err) {
             return res.status(401).send(err);
