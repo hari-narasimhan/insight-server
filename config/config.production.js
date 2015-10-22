@@ -1,7 +1,7 @@
 
 var config = require('./config.global');
 
-config.env = "prod";
+config.env = "production";
 
 //config.app.port = process.env.port || 3030;
 
