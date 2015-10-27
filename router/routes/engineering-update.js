@@ -2,6 +2,7 @@
 
 var EngineeringUpdate = require('../../models/EngineeringUpdate'); 
 var restify = require('express-restify-mongoose');
+var _               = require('lodash');
 var helper          = require('../router-helper');
 
 module.exports = function (router) {
