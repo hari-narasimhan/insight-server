@@ -9,6 +9,7 @@ module.exports = function (router) {
     restify.serve (router, 
         Initiative, 
         {
+            preMiddleware: helper.isAuthenticated,
             preCreate: function ( req, res, next ) {
                 helper.keyCheck(Initiative, req.body, function (err, record ) {
                     
