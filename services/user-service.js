@@ -71,4 +71,3 @@ exports.signup = function ( email, password, fullname, callback ) {
         });
     });
 };
-
